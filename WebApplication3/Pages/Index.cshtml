@@ -1,0 +1,41 @@
+﻿@page
+@model IndexModel
+@inject IHttpContextAccessor contxt;
+@{
+    ViewData["Title"] = "Ace Job Agency";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <ul>
+        <li> Student id: @contxt.HttpContext.Session.GetString("StudentName")</li>
+        <li> Student Name: @contxt.HttpContext.Session.GetInt32("StudentId")</li>
+    </ul>
+    <form asp-controller="Home" asp-action="Index" method="post" asp-antiforgery="true">
+        <input name="txtname" type="Text" />
+        <input type="Submit" value="Submit" />
+    </form>
+</div>
+<div>
+    @functions {
+        public int divide(int x, int y)
+        {
+            string errormessage;
+            try
+            {
+                return x / y;
+            }
+            catch (DivideByZeroException d)
+            {
+                errormessage = d.ToString();
+                WriteLiteral("<br />Cannot Divide by Zero Exception found <br /><br />");
+                WriteLiteral("Additional Info <br /><br />" + errormessage);
+                return 0;
+            }
+        }
+    }
+    <h3>Division of 10 / 5 is @divide(10, 5)</h3>
+    <h3>Division of 10 / 0 is @divide(12, 0)</h3>
+
+</div>
+
